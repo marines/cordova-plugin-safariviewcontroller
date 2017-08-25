@@ -206,7 +206,7 @@ public class ChromeCustomTabPlugin extends CordovaPlugin{
         super.onActivityResult(requestCode, resultCode, intent);
         if(requestCode == CUSTOM_TAB_REQUEST_CODE){
             JSONObject result = new JSONObject();
-            result.put("url", url);
+            // result.put("url", url);
             try {
                 result.put("event", "closed");
             } catch (JSONException e) {
