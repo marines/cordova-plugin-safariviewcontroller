@@ -54,6 +54,7 @@ public class ChromeCustomTabPlugin extends CordovaPlugin{
                 final String url = options.optString("url");
                 if(TextUtils.isEmpty(url)){
                     JSONObject result = new JSONObject();
+                    result.put("url", url);
                     result.put("error", "expected argument 'url' to be non empty string.");
                     PluginResult pluginResult = new PluginResult(PluginResult.Status.ERROR, result);
                     callbackContext.sendPluginResult(pluginResult);
@@ -69,6 +70,7 @@ public class ChromeCustomTabPlugin extends CordovaPlugin{
 
                 PluginResult pluginResult;
                 JSONObject result = new JSONObject();
+                result.put("url", url);
                 if(isAvailable()) {
                     try {
                         this.show(url, getColor(toolbarColor), showDefaultShareMenuItem, transition);
@@ -126,10 +128,10 @@ public class ChromeCustomTabPlugin extends CordovaPlugin{
             builder.addDefaultShareMenuItem();
         if(!TextUtils.isEmpty(transition))
             addTransition(builder, transition);
-       
+
 
         CustomTabsIntent customTabsIntent = builder.build();
-        
+
         String packageName = CustomTabsHelper.getPackageNameToUse(cordova.getActivity());
         if ( packageName != null ) {
            customTabsIntent.intent.setPackage(packageName);
@@ -204,6 +206,7 @@ public class ChromeCustomTabPlugin extends CordovaPlugin{
         super.onActivityResult(requestCode, resultCode, intent);
         if(requestCode == CUSTOM_TAB_REQUEST_CODE){
             JSONObject result = new JSONObject();
+            result.put("url", url);
             try {
                 result.put("event", "closed");
             } catch (JSONException e) {
